@@ -5,6 +5,7 @@ use lib::Tweet;
 // import trait
 use lib::Summary;
 
+
 fn main() {
     let article = NewsArticle {
         headline: String::from("Rust is the best language"),

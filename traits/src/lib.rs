@@ -1,3 +1,5 @@
+ //only traits defined in the current crate can be implemented for a type parameter
+
 pub trait Summary {
     fn summarize(&self) -> String;
 
