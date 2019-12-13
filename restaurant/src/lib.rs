@@ -117,7 +117,7 @@ use std::cmp::Ordering;
  // use std::{cmp::Ordering, io};
 
  // Two use statements where one is a subpath of the other 
- /* Normar approcah 
+ /* Normal approcah 
  use std::io;
  use std::io::Write;
  */

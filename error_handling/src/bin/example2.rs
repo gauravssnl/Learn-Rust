@@ -6,7 +6,7 @@ fn main() {
     match f {
         Ok(file) => file,
         Err(error) => {
-            panic!("Poblem in opening the file: {:?}", error);
+            panic!("Problem in opening the file: {:?}", error);
         },
     };
 }

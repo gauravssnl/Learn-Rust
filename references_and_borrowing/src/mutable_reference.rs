@@ -1,7 +1,7 @@
 fn main() {
     let mut s = String::from("hello");
 
-    change(&mut s); // this will not compile as the reference is not mutable
+    change(&mut s); // this will  compile as the reference is  mutable
 }
 
 fn change(some_string: &mut String) {

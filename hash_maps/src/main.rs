@@ -38,7 +38,7 @@ fn main() {
     let teams = vec!["Red", "Green"];
     let scores = vec![30, 40];
     println!("{:?}", teams.iter());
-   println!("{:?}", teams.iter().zip(scores.iter()));
+    println!("{:?}", teams.iter().zip(scores.iter()));
     let team_scores: HashMap<_, _> = teams.iter().zip(scores.iter()).collect();
     println!("team_scores: {:?}", team_scores);
 }
