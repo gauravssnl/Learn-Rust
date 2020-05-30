@@ -1,0 +1,1 @@
+D:\coding\rust\projects\module_separation\target\debug\libmodule_separation.rlib: D:\coding\rust\projects\module_separation\src\front_of_house\hosting.rs D:\coding\rust\projects\module_separation\src\front_of_house.rs D:\coding\rust\projects\module_separation\src\lib.rs
