@@ -28,7 +28,7 @@ fn main() {
     });
 
     println!("leaf: {:?}", leaf);
-    println!("leaf parent: {:?}", leaf.parent.borrow().upgrade());   
+    println!("leaf parent: {:?}", leaf.parent.borrow().upgrade());
     println!("leaf intiial rc strong count: {}", Rc::strong_count(&leaf));
 
     let branch = Rc::new(Node {
@@ -39,16 +39,22 @@ fn main() {
 
     println!("branch: {:?}", branch);
     println!("leaf current rc strong count: {}", Rc::strong_count(&leaf));
-    println!("branch current rc strong count: {}", Rc::strong_count(&branch));
+    println!(
+        "branch current rc strong count: {}",
+        Rc::strong_count(&branch)
+    );
     println!("branch current rc weak count: {}", Rc::weak_count(&branch));
 
     // now set parent Node of leaf to branch Node
     *leaf.parent.borrow_mut() = Rc::downgrade(&branch); // Rc::downgrade gives weak reference to Rc<T> , i.e. Weak<T>
-     println!("leaf now: {:?}", leaf);
-     // brach strong count will remain same
-     println!("branch current rc strong count: {}", Rc::strong_count(&branch));
-     println!("branch current rc weak count: {}", Rc::weak_count(&branch));
-     // borrow immutably 
-     // upgrade returns Option<Rc<T>>
-     println!("leaf parent: {:?}", leaf.parent.borrow().upgrade());   
+    println!("leaf now: {:?}", leaf);
+    // brach strong count will remain same
+    println!(
+        "branch current rc strong count: {}",
+        Rc::strong_count(&branch)
+    );
+    println!("branch current rc weak count: {}", Rc::weak_count(&branch));
+    // borrow immutably
+    // upgrade returns Option<Rc<T>>
+    println!("leaf parent: {:?}", leaf.parent.borrow().upgrade());
 }
