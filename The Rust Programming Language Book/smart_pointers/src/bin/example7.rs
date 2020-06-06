@@ -20,7 +20,7 @@ fn main() {
     let a = Rc::new(Cons(5, Rc::new(Cons(10, Rc::new(Nil)))));
     println!("a : {:?}", a);
     println!("Count after creating a = {}", Rc::strong_count(&a));
-    // we can also use a.clone, but the convention is to use Rc::clone
+    // we can also use a.clone(), but the convention is to use Rc::clone
     // Rc::clone doesn't make deep copy
     let b = Cons(3, Rc::clone(&a));    // if we use Box here, value a will be moved and we can't us it later
     println!("b : {:?}", b);
