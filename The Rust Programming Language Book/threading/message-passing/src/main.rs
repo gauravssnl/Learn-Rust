@@ -10,6 +10,8 @@ fn main() {
         let value = String::from("Hi Rust");
         tx.send(value).unwrap(); // if error is encounter code will panic beacuse of unwrap()
     });
-    let received = rx.recv().unwrap();
+    // recv() will block the main thread
+    // try_recv() is a non-blocking call - returns Result<T, E>
+    let received = rx.recv().unwrap(); 
     println!("Received message: {}", received);
 }
