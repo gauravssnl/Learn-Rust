@@ -1,3 +1,7 @@
+use std::sync::Mutex;
+use std::sync::thread;
+
 fn main() {
-    println!("Hello, world!");
+    let counter = Mutex::mew(0);
+    let mut handles = vec![];
 }
