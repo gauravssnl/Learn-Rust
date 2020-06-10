@@ -1,5 +1,5 @@
 [package]
-name = "shared-state-Concurrency"
+name = "shared-state-concurrency"
 version = "0.1.0"
 authors = ["Gaurav <gaurav.ssnl@gmail.com>"]
 edition = "2018"
