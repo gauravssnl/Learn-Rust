@@ -1,0 +1,36 @@
+{
+	"version": "2.0.0",
+	"options": {
+		"shell": {
+			// "executable": "C:\\cygwin64\\Cygwin.bat",
+			"executable": "C:\\cygwin64\\bin\\mintty.exe",
+			// "args": ["--login"]
+		}
+	},
+	"tasks": [
+		{
+			"type": "shell",
+			"label": "C/C++: gcc.exe build active file",
+			"command": "gcc",
+			"args": [
+				"-g",
+				"${file}",
+				"-o",
+				"${fileDirname}\\target\\debug\\c${fileBasenameNoExtension}.exe",
+				"-L",
+				"${fileDirname}\\target\\debug\\",
+				"-l${fileBasenameNoExtension}"
+			],
+			"options": {
+				// "cwd": "${workspaceFolder}"
+				// "cwd": "${workspaceRoot}"
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": "build"
+		},
+		
+	]
+}
