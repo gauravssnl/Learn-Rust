@@ -25,7 +25,7 @@ fn hello(name: &str) {
 }
 
 fn main() {
-  let m = MyBox::new(Strring::from("Gaurav"));
+  let m = MyBox::new(String::from("Gaurav"));
   hello(&m);
 }
 
