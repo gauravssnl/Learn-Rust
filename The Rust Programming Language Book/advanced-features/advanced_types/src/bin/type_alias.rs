@@ -1,3 +1,4 @@
+#[allow(unused)]
 // Creating Type Synonyms with Type Aliases
 
 fn main() {
