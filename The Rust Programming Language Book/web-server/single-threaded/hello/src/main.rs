@@ -20,9 +20,15 @@ fn handle_connection(mut stream: TcpStream) {
 
     // let response = "HTTP/1.1 200 OK\r\n\r\n";
     let get = b"GET / HTTP/1.1\r\n";
+    let sleep = b"GET /sleep HTTP/1.1\r\n";
+
     let (status_line, filename) = if buffer.starts_with(get) {
         ("HTTP/1.1 200 OK\r\n\r\n", "hello.html")
-    } else {
+    } else if buffer.starts_with(sleep) {
+         // Simulating a Slow Request in the Current Server Implementation
+         std::thread::sleep(std::time::Duration::from_secs(5));
+        ("HTTP/1.1 200 OK\r\n\r\n", "hello.html")
+    }else {
         ("HTTP/1.1 404 NOT FOUND\r\n\r\n", "404.html")
     };
 
