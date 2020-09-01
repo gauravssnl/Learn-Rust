@@ -32,6 +32,6 @@ fn main() {
     match work {
         // Note again the lack of scoping.
         Civilian => println!("Civilians work!"),
-        Soldier  => println!("Soldiers fight!"),
+        Soldier => println!("Soldiers fight!"),
     }
 }
