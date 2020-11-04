@@ -40,6 +40,6 @@ fn main() {
         max: 20,
         current: 40,
     };
-    println!("{}", c.get());
+    println!("{}", &c.get());
     println!("Ok");
 }
