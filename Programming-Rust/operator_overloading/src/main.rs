@@ -1,5 +1,6 @@
 mod lib;
 use lib::Interval;
+use lib::{Student, StudentList};
 
 fn main() {
     assert!(
@@ -33,4 +34,23 @@ fn main() {
     // Reverse wrapper takes adavtange of Ord that simply inverts any ordering.
     intervals.sort_by_key(|i| std::cmp::Reverse(i.upper));
     println!("intervals: {:?}", intervals);
+
+    let mut student_list = StudentList {
+        list: vec![
+            Student {
+                id: 1,
+                name: "GS SU".to_string(),
+            },
+            Student {
+                id: 2,
+                name: "Godi".to_string(),
+            },
+        ],
+    };
+    println!("{:?}", student_list);
+    let first_student = &student_list[0];
+    println!("{:?}", first_student);
+    let mut first_student = &mut student_list[0];
+    first_student.name = "Gaurav".to_string();
+    println!("{:?}", student_list);
 }

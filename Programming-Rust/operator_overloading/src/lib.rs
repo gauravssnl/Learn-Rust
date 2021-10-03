@@ -129,3 +129,32 @@ impl<T: PartialOrd> PartialOrd<Interval<T>> for Interval<T> {
         }
     }
 }
+
+#[derive(Debug)]
+pub struct Student {
+    pub id: i32,
+    pub name: String,
+}
+
+#[derive(Debug)]
+pub struct StudentList {
+    pub list: Vec<Student>,
+}
+
+use std::ops::{Index, IndexMut};
+
+impl Index<usize> for StudentList {
+    type Output = Student;
+
+    fn index(&self, index: usize) -> &Self::Output {
+        &self.list[index]
+    }
+}
+
+// IndexMut<Indx> : Index<Indx>
+impl IndexMut<usize> for StudentList {
+    fn index_mut(&mut self, index: usize) -> &mut Self::Output {
+        // both works.
+        &mut self.list[index] // self.list.index_mut(index)
+    }
+}
