@@ -74,3 +74,18 @@ where
         self.im += rhs.im;
     }
 }
+
+use std::cmp::PartialEq;
+
+impl<T> PartialEq for Complex<T>
+where
+    T: PartialEq,
+{
+    fn eq(&self, rhs: &Complex<T>) -> bool {
+        self.re == rhs.re && self.im == rhs.im
+    }
+    // method ne() has default definition which uses eq()
+}
+
+use std::cmp::Eq;
+impl<T: PartialEq> Eq for Complex<T> {}
