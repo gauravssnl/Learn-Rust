@@ -43,7 +43,7 @@ fn main() {
             },
             Student {
                 id: 2,
-                name: "Godi".to_string(),
+                name: "Nodi".to_string(),
             },
         ],
     };
@@ -52,5 +52,11 @@ fn main() {
     println!("{:?}", first_student);
     let mut first_student = &mut student_list[0];
     first_student.name = "Gaurav".to_string();
+    println!("{:?}", student_list);
+
+    use std::ops::{Index, IndexMut};
+    println!("second_student: {:?}", *student_list.index(1));
+    (*student_list.index_mut(1)).name.push_str(" Media");
+    println!("second_student: {:?}", *student_list.index(1));
     println!("{:?}", student_list);
 }
