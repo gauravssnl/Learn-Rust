@@ -88,4 +88,44 @@ where
 }
 
 use std::cmp::Eq;
-impl<T: PartialEq> Eq for Complex<T> {}
+impl<T: PartialEq + Iterator> Eq for Complex<T> {}
+
+use std::cmp::Ordering;
+use std::cmp::PartialOrd;
+
+// Dummy example : Complex Numbers are not ordered
+impl<T: PartialOrd> PartialOrd<Complex<T>> for Complex<T> {
+    fn partial_cmp(&self, other: &Complex<T>) -> Option<Ordering> {
+        match (
+            self.re.partial_cmp(&other.re),
+            self.im.partial_cmp(&other.im),
+        ) {
+            (Some(Ordering::Equal), Some(Ordering::Equal)) => Some(Ordering::Equal),
+            (Some(Ordering::Equal), Some(Ordering::Greater)) => Some(Ordering::Greater),
+            (Some(Ordering::Equal), Some(Ordering::Less)) => Some(Ordering::Less),
+            (Some(Ordering::Greater), _) => Some(Ordering::Greater),
+            (Some(Ordering::Less), _) => Some(Ordering::Less),
+            _ => None,
+        }
+    }
+}
+
+#[derive(PartialEq, Debug)]
+pub struct Interval<T> {
+    pub lower: T, // inclusive
+    pub upper: T, // exclusive
+}
+
+impl<T: PartialOrd> PartialOrd<Interval<T>> for Interval<T> {
+    fn partial_cmp(&self, other: &Interval<T>) -> Option<Ordering> {
+        if self == other {
+            Some(Ordering::Equal)
+        } else if self.lower >= other.lower {
+            Some(Ordering::Greater)
+        } else if self.upper <= other.lower {
+            Some(Ordering::Less)
+        } else {
+            None
+        }
+    }
+}
