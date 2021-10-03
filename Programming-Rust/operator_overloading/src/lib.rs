@@ -158,3 +158,37 @@ impl IndexMut<usize> for StudentList {
         &mut self.list[index] // self.list.index_mut(index)
     }
 }
+
+// To enable image[row][column] access.
+
+struct Image<P> {
+    width: usize,
+    pixels: Vec<P>,
+}
+
+impl<P: Default + Copy> Image<P> {
+    // Create a new image of the given size
+    fn new(width: usize, height: usize) -> Self {
+        Image {
+            width,
+            pixels: vec![P::default(); width * height],
+        }
+    }
+}
+
+impl<P> std::ops::Index<usize> for Image<P> {
+    type Output = [P];
+
+    fn index(&self, row: usize) -> &Self::Output {
+        let start = self.width * row;
+        &self.pixels[start..start + self.width]
+    }
+}
+
+impl<P> std::ops::IndexMut<usize> for Image<P> {
+    // &mut Self::Output also works as return type , since IndexMut<Indx> : Index<Index> where Self:Output is associated
+    fn index_mut(&mut self, row: usize) -> &mut [P] {
+        let start = self.width * row;
+        &mut self.pixels[start..start + self.width]
+    }
+}
