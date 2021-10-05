@@ -19,9 +19,12 @@ fn main() {
 
     use std::collections::HashSet;
     let squares = [4, 9, 16, 25, 36, 49, 64, 81];
-    let (powers_of_two, impure): (HashSet<i32>, HashSet<i32>) = squares.iter().partition(|&n| n & n - 1 == 0);
+    let (powers_of_two, impure): (HashSet<i32>, HashSet<i32>) =
+        squares.iter().partition(|&n| n & n - 1 == 0);
     println!("powers_of_two: {:?}, impure: {:?}", powers_of_two, impure);
 
-    let (upper, lower): (String, String) = "Great Teacher Onizuka".chars().partition(|&c| c.is_uppercase());
+    let (upper, lower): (String, String) = "Great Teacher Onizuka"
+        .chars()
+        .partition(|&c| c.is_uppercase());
     println!("upper: {:?}, lower: {:?}", upper, lower);
 }
