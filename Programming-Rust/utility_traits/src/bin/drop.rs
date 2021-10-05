@@ -31,3 +31,17 @@ fn main() {
 
 // standard prelude drop function example
 fn drop<T>(_x: T) {}
+
+use libc;
+
+struct FileDesc {
+    fd: i32, // actual type : c_int
+}
+
+impl Drop for FileDesc {
+    fn drop(&mut self) {
+        let _ = unsafe {
+            libc::close(self.fd);
+        };
+    }
+}
