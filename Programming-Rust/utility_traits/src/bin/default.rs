@@ -27,4 +27,34 @@ fn main() {
         .chars()
         .partition(|&c| c.is_uppercase());
     println!("upper: {:?}, lower: {:?}", upper, lower);
+    println!("{:?}", Student::new("Rust".to_string(), 1));
+}
+
+#[derive(Debug)]
+struct Student {
+    id: u128,
+    name: String,
+    subjects: Vec<String>,
+    marks_list: Vec<u32>,
+}
+
+impl Default for Student {
+    fn default() -> Self {
+        Student {
+            id: 0,
+            name: String::default(),
+            subjects: vec![],
+            marks_list: vec![],
+        }
+    }
+}
+
+impl Student {
+    fn new(name: String, id: u128) -> Self {
+        Student {
+            name,
+            id,
+            ..Default::default() // use default values
+        }
+    }
 }
