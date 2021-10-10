@@ -21,7 +21,7 @@ impl MessageApp {
                 .wrap(middleware::Logger::default())
                 .service(index)
         })
-        .bind((self.host.clone(), self.port))?
+        .bind((self.host.to_owned(), self.port))?
         .workers(8)
         .run()
     }
