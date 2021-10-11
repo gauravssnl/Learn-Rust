@@ -52,6 +52,7 @@ impl MessageApp {
                         .route(web::post().to(post)),
                 )
                 .service(clear)
+                .service(lookup)
         })
         .bind((self.host.to_owned(), self.port))?
         .workers(8)
@@ -136,4 +137,24 @@ fn post_error(err: JsonPayloadError, req: &HttpRequest) -> Error {
         error: format!("{}", err),
     };
     InternalError::from_response(err, HttpResponse::BadRequest().json(post_error)).into()
+}
+
+#[derive(Serialize)]
+struct LookupResponse {
+    server_id: usize,
+    request_count: usize,
+    result: Option<String>,
+}
+
+#[get("/lookup/{index}")]
+fn lookup(state: web::Data<AppState>, indx: web::Path<usize>) -> Result<web::Json<LookupResponse>> {
+    let request_count = state.request_count.get() + 1;
+    state.request_count.set(request_count);
+    let ms = state.messages.lock().unwrap();
+    let result = ms.get(indx.into_inner()).cloned();
+    Ok(web::Json(LookupResponse {
+        server_id: state.server_id,
+        request_count,
+        result,
+    }))
 }
