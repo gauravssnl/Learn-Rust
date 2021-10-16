@@ -1,6 +1,7 @@
 use crate::errors::AppError;
 use actix_web::HttpResponse;
 
+pub(super) mod posts;
 pub(super) mod users;
 
 pub fn convert<T, E>(res: Result<T, E>) -> Result<HttpResponse, AppError>

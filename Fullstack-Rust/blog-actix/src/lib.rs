@@ -35,6 +35,7 @@ impl Blog {
                 .data(pool.clone())
                 .wrap(middleware::Logger::default())
                 .configure(routes::users::configure)
+                .configure(routes::posts::configure)
         })
         .bind((self.host, self.port))?
         .run()
