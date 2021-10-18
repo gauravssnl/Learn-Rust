@@ -16,7 +16,7 @@ fn create_user(
     web::block(move || {
         let conn = &pool.get().unwrap();
         let username = item.into_inner().username;
-        models::create_user(&conn, &username)
+        models::create_user(conn, &username)
     })
     .then(convert)
 }
@@ -29,7 +29,7 @@ fn find_user(
     web::block(move || {
         let conn = &pool.get().unwrap();
         let name = name.into_inner();
-        models::find_user(&conn, models::UserKey::Username(&name))
+        models::find_user(conn, models::UserKey::Username(&name))
     })
     .then(convert)
 }
@@ -43,7 +43,7 @@ fn get_user(
         let conn = &pool.get().unwrap();
         let id = user_id.into_inner();
         let key = models::UserKey::ID(id);
-        models::find_user(&conn, key)
+        models::find_user(conn, key)
     })
     .then(convert)
 }

@@ -50,7 +50,7 @@ pub enum UserKey<'a> {
     ID(i32),
 }
 
-pub fn find_user<'a>(conn: &SqliteConnection, key: UserKey<'a>) -> Result<User> {
+pub fn find_user(conn: &SqliteConnection, key: UserKey) -> Result<User> {
     match key {
         UserKey::Username(name) => users::table
             .filter(users::username.eq(name))
@@ -192,7 +192,7 @@ pub fn all_posts_with_comments(conn: &SqliteConnection) -> Result<Vec<((Post, Us
 pub fn user_posts_with_comments(
     conn: &SqliteConnection,
     user_id: i32,
-) -> Result<Vec<(Post, Vec<(Comment, User)>)>> {
+) -> Result<Vec<(Post, Comments)>> {
     let posts = posts::table
         .filter(posts::user_id.eq(user_id))
         .order(posts::id.desc())

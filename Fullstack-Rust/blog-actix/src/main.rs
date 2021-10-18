@@ -1,4 +1,3 @@
-use dotenv;
 use std::env;
 
 fn main() -> std::io::Result<()> {
