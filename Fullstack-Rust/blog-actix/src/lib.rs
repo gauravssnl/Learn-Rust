@@ -36,6 +36,7 @@ impl Blog {
                 .wrap(middleware::Logger::default())
                 .configure(routes::users::configure)
                 .configure(routes::posts::configure)
+                .configure(routes::comments::configure)
         })
         .bind((self.host, self.port))?
         .run()

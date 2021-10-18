@@ -141,7 +141,7 @@ pub fn create_comment(
     })
 }
 
-pub fn post_comments(conn: &SqliteConnection, post_id: i32) -> Result<Vec<(Comment, User)>> {
+pub fn get_post_comments(conn: &SqliteConnection, post_id: i32) -> Result<Vec<(Comment, User)>> {
     comments::table
         .filter(comments::post_id.eq(post_id))
         .inner_join(users::table)
@@ -170,4 +170,38 @@ pub fn user_comments(
         ))
         .load::<(Comment, PostWithComment)>(conn)
         .map_err(Into::into)
+}
+
+type Comments = Vec<(Comment, User)>;
+
+pub fn all_posts_with_comments(conn: &SqliteConnection) -> Result<Vec<((Post, User), Comments)>> {
+    let query = posts::table
+        .order(posts::id.desc())
+        .inner_join(users::table)
+        .select((posts::all_columns, (users::id, users::username)));
+    let posts_with_user = query.load::<(Post, User)>(conn)?;
+    let (posts, post_users): (Vec<_>, Vec<_>) = posts_with_user.into_iter().unzip();
+    let comments = Comment::belonging_to(&posts)
+        .inner_join(users::table)
+        .select((comments::all_columns, (users::id, users::username)))
+        .load::<(Comment, User)>(conn)?
+        .grouped_by(&posts);
+    Ok(posts.into_iter().zip(post_users).zip(comments).collect())
+}
+
+pub fn user_posts_with_comments(
+    conn: &SqliteConnection,
+    user_id: i32,
+) -> Result<Vec<(Post, Vec<(Comment, User)>)>> {
+    let posts = posts::table
+        .filter(posts::user_id.eq(user_id))
+        .order(posts::id.desc())
+        .select(posts::all_columns)
+        .load::<Post>(conn)?;
+    let comments = Comment::belonging_to(&posts)
+        .inner_join(users::table)
+        .select((comments::all_columns, (users::id, users::username)))
+        .load::<(Comment, User)>(conn)?
+        .grouped_by(&posts);
+    Ok(posts.into_iter().zip(comments).collect())
 }
