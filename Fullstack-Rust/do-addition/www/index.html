@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+
+<head>
+    <script type="module">
+        async function init() {
+            const { instance } = await WebAssembly.instantiateStreaming(
+                fetch("./do_addition.wasm")
+            );
+
+            const answer = instance.exports.add(1, 2);
+            const add = instance.exports.add
+            console.log(answer);
+            document.write("1 + 2 = " + add(1, 2));
+        }
+
+        init();
+    </script>
+</head>
+
+<body>
+</body>
+
+</html>
